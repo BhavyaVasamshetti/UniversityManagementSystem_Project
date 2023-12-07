@@ -6,66 +6,72 @@ import java.sql.Date;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+
 @Entity
-
 public class Enrollment {
-	// defining the attributes
-	@Id
-	private Long enrollmentId;
-	private Date enrollmentDate;
-	private int studentId;
-	private int courseId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long enrollmentId;
+    private Date enrollmentDate;
 
-	// Default constructor
-	public Enrollment() {
-		super();
-	}
+    @ManyToOne
+    @JoinColumn(name = "studentId") // This assumes "studentId" is the foreign key column in the Enrollment table
+    private Student student;
 
-	// Parameterized constructor to initialize the attributes
-	public Enrollment(Long enrollmentId, Date enrollmentDate, int studentId, int courseId) {
-		super();
-		this.enrollmentId = enrollmentId;
-		this.enrollmentDate = enrollmentDate;
-		this.studentId = studentId;
-		this.courseId = courseId;
-	}
+    @ManyToOne
+    @JoinColumn(name = "courseId") // This assumes "courseId" is the foreign key column in the Enrollment table
+    private Course course;
 
-	// Getter and Setter methods for each attribute
-	public Long getEnrollmentId() {
-		return enrollmentId;
-	}
+    // Default constructor
+    public Enrollment() {
+        super();
+    }
 
-	public void setEnrollmentId(Long enrollmentId) {
-		this.enrollmentId = enrollmentId;
-	}
+    // Parameterized constructor to initialize the attributes
+    public Enrollment(Long enrollmentId, Date enrollmentDate, Student student, Course course) {
+        super();
+        this.enrollmentId = enrollmentId;
+        this.enrollmentDate = enrollmentDate;
+        this.student = student;
+        this.course = course;
+    }
 
-	public Date getEnrollmentDate() {
-		return enrollmentDate;
-	}
+    // Getter and Setter methods for each attribute
+    public Long getEnrollmentId() {
+        return enrollmentId;
+    }
 
-	public void setEnrollmentDate(Date enrollmentDate) {
-		this.enrollmentDate = enrollmentDate;
-	}
+    public void setEnrollmentId(Long enrollmentId) {
+        this.enrollmentId = enrollmentId;
+    }
 
-	public int getStudentId() {
-		return studentId;
-	}
+    public Date getEnrollmentDate() {
+        return enrollmentDate;
+    }
 
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
+    public void setEnrollmentDate(Date enrollmentDate) {
+        this.enrollmentDate = enrollmentDate;
+    }
 
-	public int getCourseId() {
-		return courseId;
-	}
+    public Student getStudent() {
+        return student;
+    }
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
-	@Override
-	public String toString() {
-		return "Enrollment [enrollmentId=" + enrollmentId + ", enrollmentDate=" + enrollmentDate + ", studentId="
-				+ studentId + ", courseId=" + courseId + "]";
-	}
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return "Enrollment [enrollmentId=" + enrollmentId + ", enrollmentDate=" + enrollmentDate + ", student=" +
+                student + ", course=" + course + "]";
+    }
 }
