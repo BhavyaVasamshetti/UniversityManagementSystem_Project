@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 @Entity
 public class Enrollment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long enrollmentId;
     private Date enrollmentDate;
 
