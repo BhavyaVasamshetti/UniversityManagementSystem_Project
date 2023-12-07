@@ -6,74 +6,75 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Course {
-	// defining the attributes
-	@Id
-	private Long courseId;
-	private String courseName;
-	private String courseCode;
-	private int courseFees;
-	private int studentId;
-	// Default constructor
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long courseId;
+    private String courseName;
+    private String courseCode;
+    private int courseFees;
 
-	public Course() {
-		super();
-	}
-	// Parameterized constructor to initialize the attributes
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    private List<Student> students;
 
-	public Course(Long courseId, String courseName, String courseCode, int courseFees, int studentId) {
-		super();
-		this.courseId = courseId;
-		this.courseName = courseName;
-		this.courseCode = courseCode;
-		this.courseFees = courseFees;
-		this.studentId = studentId;
-	}
-	// Getter and Setter methods for each attribute
+    // Default constructor
+    public Course() {
+        super();
+    }
 
-	public Long getCourseId() {
-		return courseId;
-	}
+    // Parameterized constructor to initialize the attributes
+    public Course(Long courseId, String courseName, String courseCode, int courseFees) {
+        super();
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.courseCode = courseCode;
+        this.courseFees = courseFees;
+    }
 
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
-	}
+    // Getter and Setter methods for each attribute
+    public Long getCourseId() {
+        return courseId;
+    }
 
-	public String getCourseName() {
-		return courseName;
-	}
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+    public String getCourseName() {
+        return courseName;
+    }
 
-	public String getCourseCode() {
-		return courseCode;
-	}
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
-	public void setCourseCode(String courseCode) {
-		this.courseCode = courseCode;
-	}
+    public String getCourseCode() {
+        return courseCode;
+    }
 
-	public int getCourseFees() {
-		return courseFees;
-	}
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
 
-	public void setCourseFees(int courseFees) {
-		this.courseFees = courseFees;
-	}
+    public int getCourseFees() {
+        return courseFees;
+    }
 
-	public int getStudentId() {
-		return studentId;
-	}
+    public void setCourseFees(int courseFees) {
+        this.courseFees = courseFees;
+    }
 
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
+    // Additional getters and setters for students
+    public List<Student> getStudents() {
+        return students;
+    }
 
-	@Override
-	public String toString() {
-		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseCode=" + courseCode
-				+ ", courseFees=" + courseFees + ", studentId=" + studentId + "]";
-	}
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
+    @Override
+    public String toString() {
+        return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseCode=" + courseCode
+                + ", courseFees=" + courseFees + ", students=" + students + "]";
+    }
 }
