@@ -6,72 +6,78 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Student {
-	@Id
-	private Long studentId;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private int courseId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long studentId;
+    private String firstName;
+    private String lastName;
+    private String email;
 
-	// Default constructor
+    @ManyToOne
+    @JoinColumn(name = "courseId") // This assumes "courseId" is the foreign key column in the Student table
+    private Course course;
 
-	public Student() {
-		super();
-	}
-	// Parameterized constructor to initialize the attributes
+    // Default constructor
 
-	public Student(Long studentId, String firstName, String lastName, String email, int courseId) {
-		this.studentId = studentId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.courseId = courseId;
-	}
-	// Getter and Setter methods for each attribute
+    public Student() {
+        super();
+    }
 
-	public Long getStudentId() {
-		return studentId;
-	}
+    // Parameterized constructor to initialize the attributes
 
-	public void setStudentId(Long studentId) {
-		this.studentId = studentId;
-	}
+    public Student(Long studentId, String firstName, String lastName, String email, Course course) {
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.course = course;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    // Getter and Setter methods for each attribute
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public Long getStudentId() {
+        return studentId;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public int getCourseId() {
-		return courseId;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public String toString() {
-		return "Student{" + "studentId=" + studentId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName
-				+ '\'' + ", email='" + email + '\'' + ", courseId=" + courseId + '}';
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" + "studentId=" + studentId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName
+                + '\'' + ", email='" + email + '\'' + ", course=" + course + '}';
+    }
 }
