@@ -1,82 +1,33 @@
 package com.JavaProject.Entity;
 
 //importing the neccessary packages
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
+
 
 @Entity
-public class Student {
+@Data
+public class Enrollment {
     @Id
-    private Long studentId;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private Long enrollmentId;
+    private Date enrollmentDate;
 
     @ManyToOne
-    @JoinColumn(name = "courseId") // This assumes "courseId" is the foreign key column in the Student table
+    @JoinColumn(name = "studentId") // This assumes "studentId" is the foreign key column in the Enrollment table
+    @JsonIgnoreProperties("enrollments")
+
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "courseId") // This assumes "courseId" is the foreign key column in the Enrollment table
+    @JsonIgnoreProperties("enrollments")
+
     private Course course;
-
-    // Default constructor
-
-    public Student() {
-        super();
-    }
-
-    // Parameterized constructor to initialize the attributes
-
-    public Student(Long studentId, String firstName, String lastName, String email, Course course) {
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.course = course;
-    }
-
-    // Getter and Setter methods for each attribute
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" + "studentId=" + studentId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName
-                + '\'' + ", email='" + email + '\'' + ", course=" + course + '}';
-    }
 }
